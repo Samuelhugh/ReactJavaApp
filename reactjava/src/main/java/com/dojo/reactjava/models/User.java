@@ -12,6 +12,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,21 +24,25 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="userName")
+	@Column(name="user_name")
 	@Size(min=2, max=30, message="Username must be between 2-30 characters long.")
 	private String userName;
 	
-	@Column(name="firstName")
+	@Column(name="first_name")
 	@Size(min=2, max=255, message="First name must be between 2-255 characters long.")
 	private String firstName;
 	
-	@Column(name="lastName")
+	@Column(name="last_name")
 	@Size(min=2, max=255, message="Last name must be between 2-255 characters long.")
 	private String lastName;
 	
 	@Column(name="email", unique=true)
 	@Email(message="Please enter a valid email address.")
 	private String email;
+	
+	@Column(name="birthdate")
+	@NotNull
+	private Date birthdate;
 	
 	@Column(name="password")
 	@Size(min=8, max=255, message="Password must be at least 8 characters long.")
@@ -49,10 +54,12 @@ public class User {
 	
 	@Column(name="created_at", updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@NotNull
 	private Date createdAt;
 	
 	@Column(name="updated_at")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@NotNull
 	private Date updatedAt;
 
 //    @Override
@@ -60,9 +67,6 @@ public class User {
 //        return "User [id=" + id + ", userName=" + userName + ", firstName=" + firstName + ", lastName="
 //                + lastName + ", email=" + email + ", created_at=" + createdAt + ", updated_at=" + updatedAt + "]";
 //    }
-	
-	public User() {
-	}
 
 	@PrePersist
 	protected void onCreate() {
@@ -72,6 +76,9 @@ public class User {
 	@PreUpdate
 	protected void onUpdate() {
 		this.updatedAt = new Date();
+	}
+	
+	public User() {
 	}
 	
 	public Long getId() {
