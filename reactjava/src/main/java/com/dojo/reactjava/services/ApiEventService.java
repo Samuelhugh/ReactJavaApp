@@ -21,7 +21,7 @@ public class ApiEventService {
 		return this.eventRepository.findAll();
 	}
 	
-	public Event getEvent(Long id) {
+	public Event getOneEvent(Long id) {
 		return this.eventRepository.findById(id).orElse(null);
 	}
 	

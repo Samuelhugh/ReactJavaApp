@@ -52,8 +52,16 @@ public class Event {
 	protected void onUpdate() {
 		this.updatedAt = new Date();
 	}
-
+	
 	public Event() {
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getEventName() {

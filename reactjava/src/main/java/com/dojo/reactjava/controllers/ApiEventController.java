@@ -40,12 +40,12 @@ public class ApiEventController {
 	
 	@GetMapping("/info/{id}")
 	public Event getOne(@PathVariable("id") Long id) {
-		return this.eventService.getEvent(id);
+		return this.eventService.getOneEvent(id);
 	}
 	
 	@PutMapping("/edit/{id}")
 	public Event update(@PathVariable("id") Long id, @RequestBody Event deserializedEvent) {
-		Event eventFromFrontEndToUpdate = this.eventService.getEvent(id);
+		Event eventFromFrontEndToUpdate = this.eventService.getOneEvent(id);
 		eventFromFrontEndToUpdate.setEventName(deserializedEvent.getEventName());
 		eventFromFrontEndToUpdate.setNumberAttending(deserializedEvent.getNumberAttending());
 		return this.eventRepository.save(eventFromFrontEndToUpdate);
